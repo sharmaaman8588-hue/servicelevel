@@ -1,0 +1,4 @@
+queue,queue_label,sl_target,threshold_seconds
+billing,Billing,0.8,20
+technical,Technical,0.8,20
+sales,Sales,0.8,20
