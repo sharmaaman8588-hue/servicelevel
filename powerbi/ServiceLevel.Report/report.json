@@ -1,0 +1,112 @@
+{
+  "config": "{\"version\":\"5.55\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU10\"}},\"settings\":{\"useNewFilterPaneExperience\":true}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY24SU10",
+            "path": "BaseThemes/CY24SU10.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Service level by definition",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720,
+      "name": "ServiceLevelByDefinition",
+      "ordinal": 0,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"slSlicer\",\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":24,\"z\":0,\"width\":260,\"height\":140}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Queue.queue\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"q\",\"Entity\":\"Queue\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"q\"}},\"Property\":\"queue\"},\"Name\":\"Queue.queue\"}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Queue'\"}}}}}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 140,
+          "width": 260,
+          "x": 24,
+          "y": 24,
+          "z": 0
+        },
+        {
+          "config": "{\"name\":\"slTrend\",\"layouts\":[{\"id\":0,\"position\":{\"x\":300,\"y\":24,\"z\":0,\"width\":956,\"height\":330}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"Calendar.week\"}],\"Y\":[{\"queryRef\":\"Interval.SL1 %\"},{\"queryRef\":\"Interval.SL2 %\"},{\"queryRef\":\"Interval.SL3 %\"},{\"queryRef\":\"Interval.SL4 %\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"c\",\"Entity\":\"Calendar\",\"Type\":0},{\"Name\":\"i\",\"Entity\":\"Interval\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"week\"},\"Name\":\"Calendar.week\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"SL1 %\"},\"Name\":\"Interval.SL1 %\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"SL2 %\"},\"Name\":\"Interval.SL2 %\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"SL3 %\"},\"Name\":\"Interval.SL3 %\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"SL4 %\"},\"Name\":\"Interval.SL4 %\"}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Service level by definition and week'\"}}}}}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 330,
+          "width": 956,
+          "x": 300,
+          "y": 24,
+          "z": 1000
+        },
+        {
+          "config": "{\"name\":\"slMatrix\",\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":370,\"z\":0,\"width\":1232,\"height\":326}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"Queue.queue\"},{\"queryRef\":\"Calendar.week\"}],\"Values\":[{\"queryRef\":\"Interval.SL1 %\"},{\"queryRef\":\"Interval.SL2 %\"},{\"queryRef\":\"Interval.SL3 %\"},{\"queryRef\":\"Interval.SL4 %\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"q\",\"Entity\":\"Queue\",\"Type\":0},{\"Name\":\"c\",\"Entity\":\"Calendar\",\"Type\":0},{\"Name\":\"i\",\"Entity\":\"Interval\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"q\"}},\"Property\":\"queue\"},\"Name\":\"Queue.queue\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"week\"},\"Name\":\"Calendar.week\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"SL1 %\"},\"Name\":\"Interval.SL1 %\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"SL2 %\"},\"Name\":\"Interval.SL2 %\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"SL3 %\"},\"Name\":\"Interval.SL3 %\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"SL4 %\"},\"Name\":\"Interval.SL4 %\"}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'SL1 to SL4 per queue and week (ratio of sums)'\"}}}}}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 326,
+          "width": 1232,
+          "x": 24,
+          "y": 370,
+          "z": 2000
+        }
+      ],
+      "width": 1280
+    },
+    {
+      "config": "{}",
+      "displayName": "Staffing gap heatmap",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720,
+      "name": "StaffingGapHeatmap",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"gapSlicer\",\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":24,\"z\":0,\"width\":220,\"height\":140}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Queue.queue\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"q\",\"Entity\":\"Queue\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"q\"}},\"Property\":\"queue\"},\"Name\":\"Queue.queue\"}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Queue (billing selected)'\"}}}}}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"q\",\"Entity\":\"Queue\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"q\"}},\"Property\":\"queue\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'billing'\"}}]]}}}]}}}}],\"selection\":[{\"properties\":{\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 140,
+          "width": 220,
+          "x": 24,
+          "y": 24,
+          "z": 0
+        },
+        {
+          "config": "{\"name\":\"gapHeat\",\"layouts\":[{\"id\":0,\"position\":{\"x\":260,\"y\":24,\"z\":0,\"width\":996,\"height\":672}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"TimeOfDay.time_label\"}],\"Columns\":[{\"queryRef\":\"Calendar.weekday_name\"}],\"Values\":[{\"queryRef\":\"Interval.Staffing Gap\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t\",\"Entity\":\"TimeOfDay\",\"Type\":0},{\"Name\":\"c\",\"Entity\":\"Calendar\",\"Type\":0},{\"Name\":\"i\",\"Entity\":\"Interval\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t\"}},\"Property\":\"time_label\"},\"Name\":\"TimeOfDay.time_label\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"c\"}},\"Property\":\"weekday_name\"},\"Name\":\"Calendar.weekday_name\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"Staffing Gap\"},\"Name\":\"Interval.Staffing Gap\"}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Required minus logged-in agents, weekday x half hour'\"}}}}}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"values\":[{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"FillRule\":{\"Input\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"Staffing Gap\"}},\"FillRule\":{\"linearGradient3\":{\"min\":{\"color\":{\"Literal\":{\"Value\":\"'#2B6CB0'\"}},\"value\":{\"Literal\":{\"Value\":\"-3D\"}}},\"mid\":{\"color\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}},\"value\":{\"Literal\":{\"Value\":\"0D\"}}},\"max\":{\"color\":{\"Literal\":{\"Value\":\"'#C53030'\"}},\"value\":{\"Literal\":{\"Value\":\"3D\"}}},\"nullColoringStrategy\":{\"strategy\":{\"Literal\":{\"Value\":\"'asZero'\"}}}}}}}}}}},\"selector\":{\"metadata\":\"Interval.Staffing Gap\"}}]}}}",
+          "filters": "[]",
+          "height": 672,
+          "width": 996,
+          "x": 260,
+          "y": 24,
+          "z": 1000
+        }
+      ],
+      "width": 1280
+    },
+    {
+      "config": "{}",
+      "displayName": "Queue table",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720,
+      "name": "QueueTable",
+      "ordinal": 2,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"queueTable\",\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":24,\"z\":0,\"width\":1232,\"height\":672}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Queue.queue\"},{\"queryRef\":\"Interval.SL1 %\"},{\"queryRef\":\"Interval.SL2 %\"},{\"queryRef\":\"Interval.SL3 %\"},{\"queryRef\":\"Interval.SL4 %\"},{\"queryRef\":\"Interval.Abandon %\"},{\"queryRef\":\"Interval.ASA (s)\"},{\"queryRef\":\"Interval.Occupancy %\"},{\"queryRef\":\"Interval.Required Agents\"},{\"queryRef\":\"Interval.Logged-in Agents\"},{\"queryRef\":\"Interval.Staffing Gap\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"q\",\"Entity\":\"Queue\",\"Type\":0},{\"Name\":\"i\",\"Entity\":\"Interval\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"q\"}},\"Property\":\"queue\"},\"Name\":\"Queue.queue\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"SL1 %\"},\"Name\":\"Interval.SL1 %\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"SL2 %\"},\"Name\":\"Interval.SL2 %\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"SL3 %\"},\"Name\":\"Interval.SL3 %\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"SL4 %\"},\"Name\":\"Interval.SL4 %\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"Abandon %\"},\"Name\":\"Interval.Abandon %\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"ASA (s)\"},\"Name\":\"Interval.ASA (s)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"Occupancy %\"},\"Name\":\"Interval.Occupancy %\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"Required Agents\"},\"Name\":\"Interval.Required Agents\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"Logged-in Agents\"},\"Name\":\"Interval.Logged-in Agents\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"i\"}},\"Property\":\"Staffing Gap\"},\"Name\":\"Interval.Staffing Gap\"}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Queue scorecard, all weeks'\"}}}}}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 672,
+          "width": 1232,
+          "x": 24,
+          "y": 24,
+          "z": 0
+        }
+      ],
+      "width": 1280
+    }
+  ]
+}
