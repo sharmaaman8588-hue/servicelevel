@@ -1,0 +1,11 @@
+relationship Interval_Queue
+	fromColumn: Interval.queue
+	toColumn: Queue.queue
+
+relationship Interval_Calendar
+	fromColumn: Interval.date
+	toColumn: Calendar.date
+
+relationship Interval_TimeOfDay
+	fromColumn: Interval.interval_idx
+	toColumn: TimeOfDay.interval_idx

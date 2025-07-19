@@ -1,0 +1,2 @@
+expression DataFolder = "C:\servicelevel\data\mart" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 57e9c4e8-e9f9-5cbd-a33f-b12ffa8144ef
