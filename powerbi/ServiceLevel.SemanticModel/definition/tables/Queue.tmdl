@@ -1,0 +1,47 @@
+table Queue
+	lineageTag: 5ccd9e2e-1c70-59be-924b-37f6eecb7165
+
+	column queue
+		dataType: string
+		lineageTag: 09e581c4-738b-551e-bd64-72d866fabd59
+		summarizeBy: none
+		sourceColumn: queue
+
+		annotation SummarizationSetBy = Automatic
+
+	column queue_label
+		dataType: string
+		lineageTag: f9cad754-bab2-50e9-9448-a491285ce827
+		summarizeBy: none
+		sourceColumn: queue_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column sl_target
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 7e72edc2-5ee2-5537-81b7-3b505fa61f66
+		summarizeBy: none
+		sourceColumn: sl_target
+
+		annotation SummarizationSetBy = Automatic
+
+	column threshold_seconds
+		dataType: int64
+		lineageTag: 0b1fdb7d-b850-5ce9-b06a-4ed8c704027c
+		summarizeBy: none
+		sourceColumn: threshold_seconds
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Queue = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\Queue.csv"), [Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"queue", type text}, {"queue_label", type text}, {"sl_target", type number}, {"threshold_seconds", Int64.Type}}, "en-US")
+				in
+					Typed
+
+	annotation PBI_ResultType = Table

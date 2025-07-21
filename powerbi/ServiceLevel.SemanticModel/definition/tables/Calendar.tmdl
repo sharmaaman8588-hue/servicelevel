@@ -1,0 +1,57 @@
+table Calendar
+	lineageTag: c4f85003-915c-552f-8ab6-9e136fa67a77
+
+	column date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 7340be60-7959-5918-b6b6-cff6691509f8
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column week
+		dataType: string
+		lineageTag: 94fa6f50-fd1c-5390-b81c-824920afde4c
+		summarizeBy: none
+		sourceColumn: week
+
+		annotation SummarizationSetBy = Automatic
+
+	column week_start
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 574cb8ab-ef2b-5dfc-866c-d224cd6f7135
+		summarizeBy: none
+		sourceColumn: week_start
+
+		annotation SummarizationSetBy = Automatic
+
+	column weekday_num
+		dataType: int64
+		lineageTag: 01383b90-8842-52fa-b499-362527322b19
+		summarizeBy: none
+		sourceColumn: weekday_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column weekday_name
+		dataType: string
+		lineageTag: d4cb7ecf-7758-58f7-8793-576f5f281bd8
+		summarizeBy: none
+		sourceColumn: weekday_name
+		sortByColumn: weekday_num
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendar = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\Calendar.csv"), [Delimiter=",", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"date", type date}, {"week", type text}, {"week_start", type date}, {"weekday_num", Int64.Type}, {"weekday_name", type text}}, "en-US")
+				in
+					Typed
+
+	annotation PBI_ResultType = Table

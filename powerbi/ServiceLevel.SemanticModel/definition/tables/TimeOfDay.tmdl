@@ -1,0 +1,47 @@
+table TimeOfDay
+	lineageTag: e546454f-2760-5112-8299-cd2d5938f39f
+
+	column interval_idx
+		dataType: int64
+		lineageTag: eb5d4da1-09be-5539-b3a7-9dcc83bc3156
+		summarizeBy: none
+		sourceColumn: interval_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column time_label
+		dataType: string
+		lineageTag: b5140c68-ab41-575d-a415-e53fcf87abc4
+		summarizeBy: none
+		sourceColumn: time_label
+		sortByColumn: interval_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column hour
+		dataType: int64
+		lineageTag: d9829a5a-fc31-5abe-818c-0fad44504429
+		summarizeBy: none
+		sourceColumn: hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column daypart
+		dataType: string
+		lineageTag: a5efcfe4-d764-5de2-96e8-05f3bba7cfd0
+		summarizeBy: none
+		sourceColumn: daypart
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TimeOfDay = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\TimeOfDay.csv"), [Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"interval_idx", Int64.Type}, {"time_label", type text}, {"hour", Int64.Type}, {"daypart", type text}}, "en-US")
+				in
+					Typed
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,195 @@
+table Interval
+	lineageTag: ad657979-20c0-5400-ad2f-a49240027691
+
+	/// Answered within threshold / offered.
+	measure 'SL1 %' = DIVIDE(SUM(Interval[answered_within_t]), SUM(Interval[offered]))
+		formatString: 0.0%
+		lineageTag: 9cd689be-efda-5157-ac56-d48d3ca9a019
+
+	/// Answered within threshold / answered. Abandoned calls are ignored.
+	measure 'SL2 %' = DIVIDE(SUM(Interval[answered_within_t]), SUM(Interval[answered]))
+		formatString: 0.0%
+		lineageTag: fe860ff9-c49d-523e-a3a0-aadbaf6d5e0c
+
+	/// Answered within threshold / (offered - abandoned within threshold).
+	measure 'SL3 %' = DIVIDE(SUM(Interval[answered_within_t]), SUM(Interval[offered]) - SUM(Interval[abandoned_within_t]))
+		formatString: 0.0%
+		lineageTag: c341c747-2fbf-5bf2-ac22-3adb9f97493e
+
+	/// (Answered + abandoned within threshold) / offered.
+	measure 'SL4 %' = DIVIDE(SUM(Interval[answered_within_t]) + SUM(Interval[abandoned_within_t]), SUM(Interval[offered]))
+		formatString: 0.0%
+		lineageTag: 353df1c6-fc60-5f56-835b-e61362a63e81
+
+	/// Abandoned / offered.
+	measure 'Abandon %' = DIVIDE(SUM(Interval[abandoned]), SUM(Interval[offered]))
+		formatString: 0.0%
+		lineageTag: 51f914ee-15d4-5de7-9d95-23d7ff498905
+
+	/// Average speed of answer: queue seconds of answered calls / answered.
+	measure 'ASA (s)' = DIVIDE(SUM(Interval[wait_seconds]), SUM(Interval[answered]))
+		formatString: 0.0
+		lineageTag: ead9228e-f4ff-57ef-8223-d6d5a9cdcc56
+
+	/// Handle seconds / logged-in agent seconds.
+	measure 'Occupancy %' = DIVIDE(SUM(Interval[handle_seconds]), SUM(Interval[logged_in]) * 1800)
+		formatString: 0.0%
+		lineageTag: b4aa713a-9dcb-51f0-b21a-465b3d0e5eb3
+
+	/// Erlang C requirement at the actual offered calls, per interval.
+	measure 'Required Agents' = DIVIDE(SUM(Interval[required_agents]), DISTINCTCOUNT(Interval[interval_start]))
+		formatString: 0.0
+		lineageTag: 8df345e0-37a0-53ae-9615-2d622e57496c
+
+	/// Agents logged in, per interval.
+	measure 'Logged-in Agents' = DIVIDE(SUM(Interval[logged_in]), DISTINCTCOUNT(Interval[interval_start]))
+		formatString: 0.0
+		lineageTag: 9029f48c-3ca7-5bed-87ad-c525f0360f55
+
+	/// Required minus logged-in agents; positive means short-staffed.
+	measure 'Staffing Gap' = [Required Agents] - [Logged-in Agents]
+		formatString: 0.0;-0.0;0.0
+		lineageTag: 1c415bd5-1b94-5e32-ac64-fa7ecddbf68b
+
+	column queue
+		dataType: string
+		lineageTag: 62cfe200-37ed-58e2-9bfd-2f17ae48ecf2
+		summarizeBy: none
+		sourceColumn: queue
+
+		annotation SummarizationSetBy = Automatic
+
+	column interval_start
+		dataType: dateTime
+		formatString: yyyy-mm-dd hh:nn
+		lineageTag: b471edfa-3684-5801-84f3-456dc00bde0c
+		summarizeBy: none
+		sourceColumn: interval_start
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 1add243a-304f-5ae1-ae06-a85ae4f7e39b
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column interval_idx
+		dataType: int64
+		lineageTag: cb9c427f-6bc4-5b02-bb63-c1c41bd11165
+		summarizeBy: none
+		sourceColumn: interval_idx
+
+		annotation SummarizationSetBy = Automatic
+
+	column offered
+		dataType: int64
+		lineageTag: 0c7ff84b-3e75-59b5-b529-dfb81e5e243a
+		summarizeBy: none
+		sourceColumn: offered
+
+		annotation SummarizationSetBy = Automatic
+
+	column answered
+		dataType: int64
+		lineageTag: e5b0b419-0841-5e7d-9d88-20001040f7ad
+		summarizeBy: none
+		sourceColumn: answered
+
+		annotation SummarizationSetBy = Automatic
+
+	column answered_within_t
+		dataType: int64
+		lineageTag: 308bfb14-4785-5302-9e27-fe4c134b4d38
+		summarizeBy: none
+		sourceColumn: answered_within_t
+
+		annotation SummarizationSetBy = Automatic
+
+	column abandoned
+		dataType: int64
+		lineageTag: b873984c-010f-536d-8aec-c0fcd289ee41
+		summarizeBy: none
+		sourceColumn: abandoned
+
+		annotation SummarizationSetBy = Automatic
+
+	column abandoned_within_t
+		dataType: int64
+		lineageTag: cd89b2e8-78a3-5f76-8502-b1073d416790
+		summarizeBy: none
+		sourceColumn: abandoned_within_t
+
+		annotation SummarizationSetBy = Automatic
+
+	column handle_seconds
+		dataType: int64
+		lineageTag: 339495d2-8570-579c-8904-b38de5be3fe2
+		summarizeBy: none
+		sourceColumn: handle_seconds
+
+		annotation SummarizationSetBy = Automatic
+
+	column wait_seconds
+		dataType: int64
+		lineageTag: a3778f7a-6dbb-54b0-ab5f-bd3a5f296f72
+		summarizeBy: none
+		sourceColumn: wait_seconds
+
+		annotation SummarizationSetBy = Automatic
+
+	column rostered
+		dataType: int64
+		lineageTag: a1b61d5b-9d1e-5ee0-a5d8-d877f381c97e
+		summarizeBy: none
+		sourceColumn: rostered
+
+		annotation SummarizationSetBy = Automatic
+
+	column logged_in
+		dataType: int64
+		lineageTag: c5153ed2-d7fc-5009-8b57-5b6b774feb92
+		summarizeBy: none
+		sourceColumn: logged_in
+
+		annotation SummarizationSetBy = Automatic
+
+	column required_agents
+		dataType: int64
+		lineageTag: d9a97814-005a-58ce-8d67-08b11c7fc96d
+		summarizeBy: none
+		sourceColumn: required_agents
+
+		annotation SummarizationSetBy = Automatic
+
+	column staffing_gap
+		dataType: int64
+		lineageTag: 7fce5008-c024-5f05-9063-b7bcfd468c30
+		summarizeBy: none
+		sourceColumn: staffing_gap
+
+		annotation SummarizationSetBy = Automatic
+
+	column sl1_pct
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 6e970373-5445-5b9a-97d9-a0acc9df1323
+		summarizeBy: none
+		sourceColumn: sl1_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Interval = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\Interval.csv"), [Delimiter=",", Columns=16, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"queue", type text}, {"interval_start", type datetime}, {"date", type date}, {"interval_idx", Int64.Type}, {"offered", Int64.Type}, {"answered", Int64.Type}, {"answered_within_t", Int64.Type}, {"abandoned", Int64.Type}, {"abandoned_within_t", Int64.Type}, {"handle_seconds", Int64.Type}, {"wait_seconds", Int64.Type}, {"rostered", Int64.Type}, {"logged_in", Int64.Type}, {"required_agents", Int64.Type}, {"staffing_gap", Int64.Type}, {"sl1_pct", type number}}, "en-US")
+				in
+					Typed
+
+	annotation PBI_ResultType = Table
