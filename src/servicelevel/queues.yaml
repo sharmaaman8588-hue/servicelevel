@@ -1,0 +1,45 @@
+# Parameters of the seeded generator. One entry per queue.
+#   peak_calls     expected calls in the busiest half hour of a Monday
+#   night_calls    expected calls in an overnight half hour (22:00-07:00)
+#   aht_seconds    mean handle time; each interval draws its own with `aht_noise` log-sd
+#   night_team     agents rostered overnight
+#   roster_offset  agents added to (+) or removed from (-) the Erlang requirement in the schedule
+threshold_seconds: 20
+interval_seconds: 1800
+start_date: "2025-03-03"
+weeks: 8
+interval_target: 0.80
+max_occupancy: 0.85
+patience_seconds: 120
+abandon_cap: 0.40
+absence_probabilities: [0.55, 0.33, 0.12] # logged-in = rostered minus 0, 1 or 2 agents
+day_of_week_multiplier: [1.25, 1.05, 1.00, 0.98, 0.95, 0.55, 0.40] # Monday first
+queues:
+  billing:
+    peak_calls: 28
+    night_calls: 2
+    aht_seconds: 300
+    aht_noise: 0.05
+    night_team: 2
+    roster_offset: 0
+  technical:
+    peak_calls: 80
+    night_calls: 4
+    aht_seconds: 480
+    aht_noise: 0.05
+    night_team: 3
+    roster_offset: 0
+  sales:
+    peak_calls: 55
+    night_calls: 3
+    aht_seconds: 240
+    aht_noise: 0.05
+    night_team: 2
+    roster_offset: 2
+# Planted patterns
+billing_understaffing:
+  weekdays: [1, 2] # Tuesday, Wednesday (Monday = 0)
+  start_hour: 11
+  end_hour: 14
+  agents_below_requirement: 3
+technical_misroute_share: 0.10
