@@ -1,0 +1,39 @@
+table {{ table.name }}
+	lineageTag: {{ table.tag }}
+{% for m in table.measures %}
+
+{% if m.description %}
+	/// {{ m.description }}
+{% endif %}
+	measure {{ m.quoted_name }} = {{ m.dax }}
+		formatString: {{ m.format_string }}
+		lineageTag: {{ m.tag }}
+{% endfor %}
+{% for c in table.columns %}
+
+	column {{ c.name }}
+		dataType: {{ c.data_type }}
+{% if c.format_string %}
+		formatString: {{ c.format_string }}
+{% endif %}
+		lineageTag: {{ c.tag }}
+		summarizeBy: none
+		sourceColumn: {{ c.name }}
+{% if c.sort_by %}
+		sortByColumn: {{ c.sort_by }}
+{% endif %}
+
+		annotation SummarizationSetBy = Automatic
+{% endfor %}
+
+	partition {{ table.name }} = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\{{ table.name }}.csv"), [Delimiter=",", Columns={{ table.columns | length }}, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{ '{' }}{% for c in table.columns %}{{ '{' }}"{{ c.name }}", {{ c.m_type }}{{ '}' }}{{ ", " if not loop.last }}{% endfor %}{{ '}' }}, "en-US")
+				in
+					Typed
+
+	annotation PBI_ResultType = Table
